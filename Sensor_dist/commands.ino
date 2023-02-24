@@ -45,6 +45,46 @@ void control_commands(char* topic, char* payload, int payload_length) {
     write_to_EEprom();
     sensors();
   }
+    if (str_startwith(topic, "SS1/sub/water_temp_bed_name0")) {
+    water_temp_bed_name0 = payload;
+    write_to_EEprom();
+    sensors();
+  }
+   if (str_startwith(topic, "SS1/sub/water_temp_bed_name1")) {
+    water_temp_bed_name1 = payload;
+    write_to_EEprom();
+    sensors();
+  }
+   if (str_startwith(topic, "SS1/sub/water_temp_bed_name2")) {
+    water_temp_bed_name2 = payload;
+    write_to_EEprom();
+    sensors();
+  }
+   if (str_startwith(topic, "SS1/sub/water_temp_bed_name3")) {
+    water_temp_bed_name3 = payload;
+    write_to_EEprom();
+    sensors();
+  }
+   if (str_startwith(topic, "SS1/sub/water_temp_bed_name4")) {
+    water_temp_bed_name4 = payload;
+    write_to_EEprom();
+    sensors();
+  }
+   if (str_startwith(topic, "SS1/sub/water_temp_bed_name5")) {
+    water_temp_bed_name5 = payload;
+    write_to_EEprom();
+    sensors();
+  }
+   if (str_startwith(topic, "SS1/sub/water_temp_bed_name6")) {
+    water_temp_bed_name6 = payload;
+    write_to_EEprom();
+    sensors();
+  }
+   if (str_startwith(topic, "SS1/sub/water_temp_bed_name7")) {
+    water_temp_bed_name7 = payload;
+    write_to_EEprom();
+    sensors();
+  }
   if (str_startwith(topic, "SS1/sub/reset")) {
     Serial.print("Reset");
     delay(9000);
