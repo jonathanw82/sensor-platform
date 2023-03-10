@@ -1,3 +1,5 @@
+
+
 void getTempHumData() {
   temp = sht31.readTemperature() - 1;                   // Get current Temperature
   hum = sht31.readHumidity();                           // Get current Humidity
@@ -195,14 +197,9 @@ bool sensors() {
   return false;
 }
 
-String path = PUBLISH_PATH + LOCATION + "/";
 
 void mqttPublishTempHumData(int num, String bedName) {
-
-  //char mqtt_path;
-  //strcpy(mqtt_path, path);
-  //strcat(mqtt_path, "Sensor_" + num + "/" + "bed_" + "/");
-
+  String path = PUBLISH_PATH + MACADDRESS + "/" + LOCATION + "/";
   if (isnan(temp)) {
     mqtt_client.publish(path + String("Sensor_") + String(num) + String("/") + String("bed_") + String(bedName) + String("/") + String("Temp ") , String("Sensor Disconnected"));
     mqtt_client.publish(path + String("Sensor_") + String(num) + String("/") + String("bed_") + String(bedName) + String("/") + String("Hum ") , String("Sensor Disconnected"));
@@ -214,8 +211,7 @@ void mqttPublishTempHumData(int num, String bedName) {
 }
 
 void mqttPublishWaterTempData(String letter, String water_temp_bed_name) {
-
-
+  String path = PUBLISH_PATH + MACADDRESS + "/" + LOCATION + "/";
   if (water_temp == -127)mqtt_client.publish(path + String("WaterSensor_") + String(letter) + String("/") + String("bed_") + String(water_temp_bed_name), String("Sensor Disconnected"));
   else mqtt_client.publish(path + String("WaterSensor_") + String(letter) + String("/") + String("bed_") + String(water_temp_bed_name), String(water_temp));
 }
