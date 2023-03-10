@@ -7,6 +7,8 @@
 #include <EEPROM.h>
 #include <avr/wdt.h>
 
+#include "SHT31_Cls.h"
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Define WiFi & Mqtt Settings  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #define WIFI_NAME "TP-LINK_Extender_2.4GHz"
 #define WIFI_PASSWORD "n6qYCUw46aUMv7"
@@ -27,14 +29,16 @@ unsigned long publish_timer;
 const unsigned long publish_interval = 10000;
 int eeAddress = 0;
 
-char* bedName0 = "?";
-char* bedName1 = "?";
-char* bedName2 = "?";
-char* bedName3 = "?";
-char* bedName4 = "?";
-char* bedName5 = "?";
-char* bedName6 = "?";
-char* bedName7 = "?";
+SHT31_Cls sensor_0(0, 0, 0);
+
+char bedName0[5] = "?";
+char bedName1[5] = "?";
+char bedName2[5] = "?";
+char bedName3[5] = "?";
+char bedName4[5] = "?";
+char bedName5[5] = "?";
+char bedName6[5] = "?";
+char bedName7[5] = "?";
 String water_temp_bed_name0 = "?";
 String water_temp_bed_name1 = "?";
 String water_temp_bed_name2 = "?";
@@ -111,12 +115,21 @@ void setup() {
   water_h.begin();
   sht31.begin(SHT31_Address);
 
+  strcpy(sensor_0.name, "11A");
+
   //get_EEprom();
   watchdogSetup();
 }
 
 void loop() {
   wdt_reset();
+  static unsigned long timer;
+  if (millis() - timer > 1000) {
+    timer = millis();
+    sensor_0.update();
+  }
+  return;
+
   maintain_mqtt_connection();
   if (millis() - currentTime > 1000) {
     count++;
