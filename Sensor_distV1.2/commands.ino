@@ -6,8 +6,9 @@ bool str_startwith(char* string, char* start) {
 void control_commands(char* topic, char* payload, int payload_length) {
 
 char boom[200];
-boom = SUBSCRIBE_PATH + MACADDRESS + "/";
-
+strcpy(boom, );
+strcat(boom, );
+strcat(boom, "/");
 
   if (str_startwith(topic, strcat(boom,"Sensor_0"))) {
     bedName0 = payload;
