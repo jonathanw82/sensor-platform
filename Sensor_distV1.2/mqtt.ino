@@ -41,7 +41,7 @@ void maintain_mqtt_connection() {
   mqtt_client.subscribe(SUBSCRIBE_PATH"WaterSensor_F");
   mqtt_client.subscribe(SUBSCRIBE_PATH"WaterSensor_G");
   mqtt_client.subscribe(SUBSCRIBE_PATH"WaterSensor_H");
-  sensors();
+  //sensors();
 }
 
 void mqtt_message(MQTTClient * client, char topic[], char payload[], int payload_length) {

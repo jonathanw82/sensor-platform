@@ -26,10 +26,10 @@ bool wifi() {
       }
     } else {
       Serial.println(F("connection successfull!"));
+      setUpMqtt();                              // Setup The MQTT protacol
       byte mac[6];
       WiFi.macAddress(mac);
       getMacAddress(mac);
-      setUpMqtt();                              // Setup The MQTT protacol
       return true;
     }
   }
@@ -47,5 +47,5 @@ void getMacAddress(byte mac[]) {
     }
   }
   Serial.print("MAC: ");
-  Serial.print(MACADDRESS);
+  Serial.println(MACADDRESS);
 }
