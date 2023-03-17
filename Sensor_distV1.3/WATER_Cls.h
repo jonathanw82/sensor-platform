@@ -2,7 +2,8 @@
 #define WATER_CLS_H
 
 #include <Wire.h>                 // I2c enable Lib
-#include <DallasTemperature.h>    // Water Temp Sensor
+// #include <DallasTemperature.h>    // Water Temp Sensor
+#include <DS18B20.h>
 #include <MQTT.h>
 
 
@@ -22,7 +23,7 @@ class WATER_Cls{
         int water_sensor;
         int sensor_number;
         OneWire *_OneWire;
-        DallasTemperature *_DallasTemperature;
+        DS18B20 *_DS18B20;
         void publish_water_temperature(float water_temp);
         MQTTClient* mqtt_client;
 };

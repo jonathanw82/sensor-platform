@@ -6,15 +6,16 @@ WATER_Cls::WATER_Cls(int eeprom_address, int water_pin, int sensor_number, MQTTC
     this->sensor_number = sensor_number;
     this->mqtt_client = mqtt_client;
     this->_OneWire = new OneWire(this->water_pin);
-    this->_DallasTemperature = new DallasTemperature(this->_OneWire);
+    this->_DS18B20 = new DS18B20(this->_OneWire);
     this->name[0] = '\0';
 }
 
 
 bool WATER_Cls::update(){
-    this->_DallasTemperature->requestTemperatures();
-    float water_temp = _DallasTemperature->getTempCByIndex(0);
-    this->publish_water_temperature(22);
+    this->_DS18B20->requestTemperatures();
+    float water_temp = _DS18B20->getTempC();
+    Serial.println(water_temp);
+   // this->publish_water_temperature(water_temp);
 }
 
 void WATER_Cls::publish_water_temperature(float water_temp){
