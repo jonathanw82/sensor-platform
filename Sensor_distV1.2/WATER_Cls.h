@@ -1,19 +1,14 @@
 #ifndef WATER_CLS_H
 #define WATER_CLS_H
 
-#include <Wire.h>                   // I2c enable Lib
+#include <Wire.h>                 // I2c enable Lib
 #include <DallasTemperature.h>    // Water Temp Sensor
+#include <MQTT.h>
 
-
-// define the pin number
-// setup one wire instance
-// pass data to dallas
-// sesnor number
-// water temperature value
 
 class WATER_Cls{
     public:
-        WATER_Cls(int eeprom_address, int water_pin, int sensor_number);
+        WATER_Cls(int eeprom_address, int water_pin, int sensor_number, MQTTClient* mqtt_client);
         void set_name(char* name);
         bool update();
         char name[5];
@@ -29,5 +24,6 @@ class WATER_Cls{
         OneWire *_OneWire;
         DallasTemperature *_DallasTemperature;
         void publish_water_temperature(float water_temp);
+        MQTTClient* client;
 };
 #endif
