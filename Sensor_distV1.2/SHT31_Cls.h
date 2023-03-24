@@ -16,11 +16,12 @@
 // post values
 
 #include <BB_Adafruit_SHT31.h>
+#include <MQTT.h>
 
 
 class SHT31_Cls {
     public:
-        SHT31_Cls(int eeprom_address, int mux_address, int sensor_number, int sensor_address);
+        SHT31_Cls(int eeprom_address, int mux_address, int sensor_number, int sensor_address, MQTTClient* mqtt_client);
         void set_name(char* name);
         bool update();
         char name[5];
@@ -37,6 +38,7 @@ class SHT31_Cls {
         void publish_temperature(float temp);
         void get_humidity();
         void publish_humidity(float hum);
+        MQTTClient* mqtt_client;
 };
 
 #endif

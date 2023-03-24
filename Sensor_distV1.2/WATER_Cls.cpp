@@ -14,7 +14,7 @@ WATER_Cls::WATER_Cls(int eeprom_address, int water_pin, int sensor_number, MQTTC
 bool WATER_Cls::update(){
     this->_DallasTemperature->requestTemperatures();
     float water_temp = _DallasTemperature->getTempCByIndex(0);
-    this->publish_water_temperature(22);
+    this->publish_water_temperature(water_temp);
 }
 
 void WATER_Cls::publish_water_temperature(float water_temp){

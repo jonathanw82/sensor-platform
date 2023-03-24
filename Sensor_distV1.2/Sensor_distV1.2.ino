@@ -1,4 +1,4 @@
-//#include <BB_Adafruit_SHT31.h>
+#include <BB_Adafruit_SHT31.h>
 #include <WiFiNINA.h>
 #include <MQTT.h>
 #include <SPI.h>
@@ -30,8 +30,14 @@ const unsigned long publish_interval = 10000;
 
 int SHT31_Address = 0x44; 
 // eeprom_address, mux_channel, sensor_number
-SHT31_Cls sensor_0(0, 0, 0, SHT31_Address);
-SHT31_Cls sensor_1(4, 1, 1, SHT31_Address);
+SHT31_Cls sensor_0(0, 0, 1, SHT31_Address, &mqtt_client);
+SHT31_Cls sensor_1(4, 1, 1, SHT31_Address, &mqtt_client);
+SHT31_Cls sensor_2(4, 2, 2, SHT31_Address, &mqtt_client);
+SHT31_Cls sensor_3(0, 3, 3, SHT31_Address, &mqtt_client);
+SHT31_Cls sensor_4(4, 4, 4, SHT31_Address, &mqtt_client);
+SHT31_Cls sensor_5(4, 5, 5, SHT31_Address, &mqtt_client);
+SHT31_Cls sensor_6(0, 6, 6, SHT31_Address, &mqtt_client);
+SHT31_Cls sensor_7(4, 7, 7, SHT31_Address, &mqtt_client);
 
 char bedName0[5] = "?";
 char bedName1[5] = "?";
@@ -84,6 +90,12 @@ void setup() {
 
   strcpy(sensor_0.name, "11A");
   strcpy(sensor_1.name, "11B");
+  strcpy(sensor_2.name, "11C");
+  strcpy(sensor_3.name, "11D");
+  strcpy(sensor_4.name, "11E");
+  strcpy(sensor_5.name, "11F");
+  strcpy(sensor_6.name, "11G");
+  strcpy(sensor_7.name, "11H");
 
   strcpy(water_a.name, "1C");
   strcpy(water_b.name, "2C");
@@ -107,16 +119,24 @@ void loop() {
   
   if (millis() - timer > 4000) {
     timer = millis();
-    //sensor_0.update();
-    //sensor_1.update();
     water_a.update();
-    water_b.update();
-    water_c.update();
-    water_d.update();
-    water_e.update();
-    water_f.update();
-    water_g.update();
-    water_h.update();
+     water_b.update();
+     water_c.update();
+     water_d.update();
+     water_e.update();
+     water_f.update();
+     water_g.update();
+     water_h.update();
+    sensor_0.update();
+    sensor_1.update();
+    sensor_2.update();
+    sensor_3.update();
+    sensor_4.update();
+    sensor_5.update();
+    sensor_6.update();
+    sensor_7.update();
+    
+  
   }
 
   mqtt_client.loop();
