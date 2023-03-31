@@ -32,6 +32,7 @@ class SHT31_Cls {
         int mux_channel;
         int sensor_number;
         int sensor_address;
+        bool initialised = false;
 
         void set_mux_address();
         void get_temperature();

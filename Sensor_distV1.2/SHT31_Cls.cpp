@@ -1,8 +1,5 @@
 #include "SHT31_Cls.h"
 
-// SHT31_Cls sensor_0(0, 0, 0);
-// SHT31_Cls sensor_1(4, 1, 1);
-
 SHT31_Cls::SHT31_Cls(int eeprom_address, int mux_channel, int sensor_number, int sensor_address, MQTTClient* mqtt_client) {
     this->eeprom_address = eeprom_address;
     this->mux_channel = mux_channel;
@@ -14,13 +11,11 @@ SHT31_Cls::SHT31_Cls(int eeprom_address, int mux_channel, int sensor_number, int
 }
 
 bool SHT31_Cls::update() {
-    // read temperature + humidity
-    // post tempearture + humidity
-    if(!this->sht31->begin(sensor_address));
+    if(!this->initialised)this->sht31->begin(sensor_address);
+    this->initialised = true;
     this->sht31->switchMUXAddress(0x70, this->mux_channel);
     float temp = sht31->readTemperature();
     float hum = sht31->readHumidity();
-    Serial.println(temp);
     this->publish_temperature(temp);
     this->publish_humidity(hum);
 }
@@ -46,8 +41,14 @@ void SHT31_Cls::publish_temperature(float temp) {
     Serial.print(path);
 
     dtostrf(temp, 2, 2, value_str);
-    Serial.println(value_str);
-    mqtt_client->publish(path, value_str);
+    if(isnan(temp)){
+        sprintf(value_str, "Check Sensor");
+        Serial.println(value_str);
+        mqtt_client->publish(path, value_str);
+    }else{
+        Serial.println(value_str);
+        mqtt_client->publish(path, value_str);
+    }
 }
 
 
@@ -72,6 +73,12 @@ void SHT31_Cls::publish_humidity(float hum) {
     Serial.print(path);
 
     dtostrf(hum, 2, 2, value_str);
-    Serial.println(value_str);
-    mqtt_client->publish(path, value_str);
+      if(isnan(hum)){
+        sprintf(value_str, "Check Sensor");
+        Serial.println(value_str);
+        mqtt_client->publish(path, value_str);
+    }else{
+        Serial.println(value_str);
+        mqtt_client->publish(path, value_str);
+    }
 }

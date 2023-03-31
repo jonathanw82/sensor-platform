@@ -36,15 +36,6 @@ void WATER_Cls::publish_water_temperature(float water_temp){
     Serial.println(F("SENSOR READ DATA:"));
     Serial.print(path);
 
-    // randomSeed(analogRead(0));
-    // float water_random = random(0.00, 100.00);
-
-    // dtostrf(water_random, 2, 2, value_str);
-    // mqtt_client->publish(path, value_str);
-    // Serial.print("=");
-    // Serial.println(value_str);
-
-
     dtostrf(water_temp, 2, 2, value_str);
     if(water_temp < -100.00){
         sprintf(value_str, "Check Sensor");

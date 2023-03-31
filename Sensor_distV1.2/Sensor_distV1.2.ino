@@ -14,7 +14,7 @@
 #define PUBLISH_PATH "BedEnvironment/SS1/"
 #define SUBSCRIBE_PATH "SS1/sub/"
 #define DEVICE_NAME "SS1"
-String LOCATION = "C1";
+char LOCATION[5] = "C1";
 String MACADDRESS;
 int status = WL_IDLE_STATUS;
 MQTTClient mqtt_client;
@@ -22,15 +22,13 @@ WiFiClient www_client;
 long last_connection_attempt = 0;
 int isWifiConnectedCounter = 0;
 int isMQTTConnectedCounter = 0;
-int mqttNotConnected = 0;
 unsigned long publish_timer;
 const unsigned long publish_interval = 10000;
-//int eeAddress = 0;
 
 
 int SHT31_Address = 0x44; 
-// eeprom_address, mux_channel, sensor_number
-SHT31_Cls sensor_0(0, 0, 1, SHT31_Address, &mqtt_client);
+// eeprom_address, mux_channel, sensor_number, SHT31_Address, &mqtt_client
+SHT31_Cls sensor_0(0, 0, 0, SHT31_Address, &mqtt_client);
 SHT31_Cls sensor_1(4, 1, 1, SHT31_Address, &mqtt_client);
 SHT31_Cls sensor_2(4, 2, 2, SHT31_Address, &mqtt_client);
 SHT31_Cls sensor_3(0, 3, 3, SHT31_Address, &mqtt_client);
@@ -47,14 +45,14 @@ char bedName4[5] = "?";
 char bedName5[5] = "?";
 char bedName6[5] = "?";
 char bedName7[5] = "?";
-String water_temp_bed_name0 = "?";
-String water_temp_bed_name1 = "?";
-String water_temp_bed_name2 = "?";
-String water_temp_bed_name3 = "?";
-String water_temp_bed_name4 = "?";
-String water_temp_bed_name5 = "?";
-String water_temp_bed_name6 = "?";
-String water_temp_bed_name7 = "?";
+char water_temp_bed_name0[5] = "?";
+char water_temp_bed_name1[5] = "?";
+char water_temp_bed_name2[5] = "?";
+char water_temp_bed_name3[5] = "?";
+char water_temp_bed_name4[5] = "?";
+char water_temp_bed_name5[5] = "?";
+char water_temp_bed_name6[5] = "?";
+char water_temp_bed_name7[5] = "?";
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Water Temperature sensor ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -85,6 +83,7 @@ void watchdogSetup() {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Setup ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void setup() {
   Serial.begin(9600);
+  Serial.println(F("Begin..."));
   wifi();
   Wire.begin();         // Begin I2c
 
@@ -106,8 +105,6 @@ void setup() {
   strcpy(water_g.name, "7C");
   strcpy(water_h.name, "8C");
 
-
-
   //get_EEprom();
   watchdogSetup();
 }
@@ -120,13 +117,13 @@ void loop() {
   if (millis() - timer > 4000) {
     timer = millis();
     water_a.update();
-     water_b.update();
-     water_c.update();
-     water_d.update();
-     water_e.update();
-     water_f.update();
-     water_g.update();
-     water_h.update();
+    water_b.update();
+    water_c.update();
+    water_d.update();
+    water_e.update();
+    water_f.update();
+    water_g.update();
+    water_h.update();
     sensor_0.update();
     sensor_1.update();
     sensor_2.update();
@@ -135,8 +132,6 @@ void loop() {
     sensor_5.update();
     sensor_6.update();
     sensor_7.update();
-    
-  
   }
 
   mqtt_client.loop();
