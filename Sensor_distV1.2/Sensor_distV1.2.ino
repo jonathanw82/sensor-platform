@@ -71,10 +71,10 @@ void loop() {
   maintain_mqtt_connection();
   mqtt_client.loop();
 
-  if (millis() - timer > 5000) {
+  if (millis() - timer > 20000) {
     if (getSensorData()) {
       timer = millis();
-      Serial.print("timer started");
+      Serial.print(F("timer started"));
     }
   }
 

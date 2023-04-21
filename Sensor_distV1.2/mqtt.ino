@@ -34,6 +34,8 @@ void maintain_mqtt_connection() {
   Serial.println(F("success!"));
 
   mqtt_client.subscribe(construct_path("reset"));
+  mqtt_client.subscribe(construct_path("factory_reset"));
+  mqtt_client.subscribe(construct_path("update"));
   mqtt_client.subscribe(construct_path("sensor_0"));
   mqtt_client.subscribe(construct_path("sensor_1"));
   mqtt_client.subscribe(construct_path("sensor_2"));

@@ -19,6 +19,12 @@ void SHT31_Cls::get_name_from_eeprom() {
     strcpy(this->bed_name, "?");
 }
 
+void SHT31_Cls::set_name(char* name) {
+    strcpy(this->bed_name, name);
+    EEPROM.put(this->eeprom_address, this->bed_name);
+    this->update();
+}
+
 bool SHT31_Cls::update() {
     if(!this->initialised)this->sht31->begin(sensor_address);
     this->initialised = true;
@@ -27,11 +33,7 @@ bool SHT31_Cls::update() {
     float hum = sht31->readHumidity();
     this->publish_temperature(temp);
     this->publish_humidity(hum);
-}
-
-void SHT31_Cls::set_name(char* name) {
-    strcpy(this->bed_name, name);
-    EEPROM.put(this->eeprom_address, this->bed_name);
+    return true;
 }
 
 void SHT31_Cls::publish_temperature(float temp) {

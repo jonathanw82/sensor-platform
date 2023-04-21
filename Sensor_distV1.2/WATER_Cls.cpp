@@ -29,11 +29,7 @@ void WATER_Cls::get_name_from_eeprom() {
 void WATER_Cls::set_name(char* name) {
   strcpy(this->bed_name, name);
   EEPROM.put(this->eeprom_address, this->bed_name);
-  Serial.println("");
-  Serial.print("adress and bed name = ");
-  Serial.print(this->eeprom_address);
-  Serial.print(" ");
-  Serial.print(this->bed_name);
+  this->update();
 }
 
 void WATER_Cls::publish_water_temperature(float water_temp) {

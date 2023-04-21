@@ -10,6 +10,9 @@ char* str_return_command(char* topic) {
   return output_str;
 }
 
+void factory_reset() {
+}
+
 //~~~~~~~~~~~~~~~~~~~~~~~~ Control commands ~~~~~~~~~~~~~~~~~~~~~~~~~~
 void control_commands(char* topic, char* payload, int payload_length) {
 
@@ -17,14 +20,14 @@ void control_commands(char* topic, char* payload, int payload_length) {
     return;
   }
 
-  int array_location = 17;
+  int array_location = 20;
   char new_name[5];
 
-  char* commands[17] = { "sensor_0", "sensor_1", "sensor_2", "sensor_3", "sensor_4", "sensor_5", "sensor_6", "sensor_7", "water_sensor_0",
-                         "water_sensor_1", "water_sensor_2", "water_sensor_3", "water_sensor_4", "water_sensor_5", "water_sensor_6", "water_sensor_7", "reset"};
+  char* commands[19] = { "sensor_0", "sensor_1", "sensor_2", "sensor_3", "sensor_4", "sensor_5", "sensor_6", "sensor_7", "water_sensor_0",
+                         "water_sensor_1", "water_sensor_2", "water_sensor_3", "water_sensor_4", "water_sensor_5", "water_sensor_6", "water_sensor_7", "reset", "factory_reset", "update" };
 
   // check the array
-  for (int i = 0; i < 17; i++) {
+  for (int i = 0; i < 19; i++) {
     if (!strcmp(str_return_command(topic), commands[i])) {
       array_location = i;
       strcpy(new_name, payload);
@@ -83,10 +86,21 @@ void control_commands(char* topic, char* payload, int payload_length) {
       break;
     case 16:
       Serial.print("Reset");
-      while(true);
+      while (true);
+      break;
+    case 17:
+      Serial.print(F("Factory reset all bed names will now be reset to ?"));
+      for (int i = 0; i < EEPROM.length(); i++) {
+        EEPROM.put(i, 0);
+      }
+      while (true);
+      break;
+    case 18:
+      Serial.print(F("User updated sensors"));
+      getSensorData();
       break;
     default:
-      Serial.print("Index not found");
+      Serial.print(F("Index not found"));
       break;
   }
 }
