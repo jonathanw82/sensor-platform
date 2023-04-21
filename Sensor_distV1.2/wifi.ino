@@ -1,4 +1,5 @@
 bool wifi() {
+  static int isWifiConnectedCounter = 0;
   // check for the WiFi module:
   if (WiFi.status() == WL_NO_MODULE) {
     Serial.println(F("Communication with WiFi module failed!"));
@@ -34,18 +35,7 @@ bool wifi() {
     }
   }
 }
+
 void getMacAddress(byte mac[]) {
-  for (int i = 5; i >= 0; i--) {
-    if (mac[i] < 16) {
-      MACADDRESS.concat("0");
-    }
-    String macChar = String(mac[i], HEX);
-    macChar.toUpperCase();
-    MACADDRESS.concat(macChar);
-    if (i > 0) {
-      MACADDRESS.concat(":");
-    }
-  }
-  Serial.print("MAC: ");
-  Serial.println(MACADDRESS);
+    sprintf(MACADDRESS, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 }

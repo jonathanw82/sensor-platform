@@ -3,16 +3,19 @@ void setUpMqtt() {
   mqtt_client.onMessageAdvanced(mqtt_message);
 }
 
-void construct_path(char* dest ,char* endpoint){
+char path[200];
+char* construct_path(char* endpoint) {
+  // macaddress/sensor_1;
   char subpath[200];
-  strcpy(subpath, SUBSCRIBE_PATH);
-  strcat(subpath, LOCATION);
+  strcpy(subpath, MACADDRESS);
   strcat(subpath, "/");
   strcat(subpath, endpoint);
-  strcpy(dest, subpath);
+  strcpy(path, subpath);
+  return path;
 }
 
 void maintain_mqtt_connection() {
+  static long last_connection_attempt = 0;
   if (mqtt_client.connected()) {
     return;
   }
@@ -30,47 +33,26 @@ void maintain_mqtt_connection() {
   }
   Serial.println(F("success!"));
 
-  char path[200];
-
-  construct_path(path, "reset");
-  mqtt_client.subscribe(path);
-  construct_path(path, "Sensor_0");
-  mqtt_client.subscribe(path);
-  construct_path(path, "Sensor_1");
-  mqtt_client.subscribe(path);
-  construct_path(path, "Sensor_2");
-  mqtt_client.subscribe(path);
-  construct_path(path, "Sensor_3");
-  mqtt_client.subscribe(path);
-  construct_path(path, "Sensor_4");
-  mqtt_client.subscribe(path);
-  construct_path(path, "Sensor_5");
-  mqtt_client.subscribe(path);
-  construct_path(path, "Sensor_6");
-  mqtt_client.subscribe(path);
-  construct_path(path, "Sensor_7");
-  mqtt_client.subscribe(path);
-  construct_path(path, "WaterSensor_A");
-  mqtt_client.subscribe(path);
-  construct_path(path, "WaterSensor_B");
-  mqtt_client.subscribe(path);
-  construct_path(path, "WaterSensor_C");
-  mqtt_client.subscribe(path);
-  construct_path(path, "WaterSensor_D");
-  mqtt_client.subscribe(path);
-  construct_path(path, "WaterSensor_E");
-  mqtt_client.subscribe(path);
-  construct_path(path, "WaterSensor_F");
-  mqtt_client.subscribe(path);
-  construct_path(path, "WaterSensor_G");
-  mqtt_client.subscribe(path);
-  construct_path(path, "WaterSensor_H");
-  mqtt_client.subscribe(path);
+  mqtt_client.subscribe(construct_path("reset"));
+  mqtt_client.subscribe(construct_path("sensor_0"));
+  mqtt_client.subscribe(construct_path("sensor_1"));
+  mqtt_client.subscribe(construct_path("sensor_2"));
+  mqtt_client.subscribe(construct_path("sensor_3"));
+  mqtt_client.subscribe(construct_path("sensor_4"));
+  mqtt_client.subscribe(construct_path("sensor_5"));
+  mqtt_client.subscribe(construct_path("sensor_6"));
+  mqtt_client.subscribe(construct_path("sensor_7"));
+  mqtt_client.subscribe(construct_path("water_sensor_0"));
+  mqtt_client.subscribe(construct_path("water_sensor_1"));
+  mqtt_client.subscribe(construct_path("water_sensor_2"));
+  mqtt_client.subscribe(construct_path("water_sensor_3"));
+  mqtt_client.subscribe(construct_path("water_sensor_4"));
+  mqtt_client.subscribe(construct_path("water_sensor_5"));
+  mqtt_client.subscribe(construct_path("water_sensor_6"));
+  mqtt_client.subscribe(construct_path("water_sensor_7"));
 }
 
-
-
-void mqtt_message(MQTTClient * client, char topic[], char payload[], int payload_length) {
+void mqtt_message(MQTTClient* client, char topic[], char payload[], int payload_length) {
   Serial.print("message recieved: ");
   Serial.print(topic);
   Serial.print(" = ");
