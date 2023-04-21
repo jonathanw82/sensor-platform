@@ -2,6 +2,18 @@
 ## Overview:
 A method of obtaining up to seven growbeds worth of temperature, humidity and water temperatures in a vertical farm from one device. Messages can then be sent via MQTT to a local online database to store the incomming data for use at a later date.
 
+Live data can be displayed by useing MQTTExplorer as shown in fig(1)
+
+<br>
+
+### Fig(1)
+
+<div align="center">
+   <img src="https://github.com/jonathanw82/sensor-platform/blob/main/media/mqtt.jpg" alt="screen shot"/>
+ </div>
+
+<br>
+
 ## Hardware:
 * 1 x Custom made pcb
 * 1 x Adruino uno wifi rev2 
@@ -11,6 +23,8 @@ A method of obtaining up to seven growbeds worth of temperature, humidity and wa
 
 <br>
 
+### Fig(2)
+
 <div align="center">
    <img src="https://github.com/jonathanw82/sensor-platform/blob/main/media/wiring.jpg" alt="wiring"/>
  </div>
@@ -19,9 +33,11 @@ A method of obtaining up to seven growbeds worth of temperature, humidity and wa
 
 ## Control Commands
 
-Control commands can be used to get fresh data, update bed names or reset the system. To use contol commnads go to MQTTExplorer and locate the publish section, change the output format to raw and then use the Mac address forward slash followed by the systax in the table below.
+Control commands can be used to get fresh data, update bed names or reset the system. To use contol commnads go to MQTTExplorer and locate the publish section fig(3), change the output format to raw and then use the Mac address forward slash followed by the systax in the table below.
 
 <br>
+
+### Fig(3)
 
 <div align="center">
    <img src="https://github.com/jonathanw82/sensor-platform/blob/main/media/mqttpublish.png" alt="mqtt explorer"/>
