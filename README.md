@@ -24,7 +24,7 @@ Control commands can be used to get fresh data, update bed names or reset the sy
 <br>
 
 <div align="center">
-   <img src="https://github.com/jonathanw82/sensor-platform/blob/main/media/mqttpublish.jpg" alt="mqtt explorer"/>
+   <img src="https://github.com/jonathanw82/sensor-platform/blob/main/media/mqttpublish.png" alt="mqtt explorer"/>
  </div>
 
 <br>
