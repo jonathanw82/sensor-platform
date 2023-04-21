@@ -26,7 +26,7 @@ Live data can be displayed by useing MQTTExplorer as shown in fig(1)
 ### Fig(2)
 
 <div align="center">
-   <img src="https://github.com/jonathanw82/sensor-platform/blob/main/media/wiring.jpg" alt="wiring"/>
+   <img src="https://github.com/jonathanw82/sensor-platform/blob/main/media/wiring1.jpg" alt="wiring"/>
  </div>
 
 <br>
