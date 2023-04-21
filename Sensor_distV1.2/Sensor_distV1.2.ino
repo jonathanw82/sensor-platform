@@ -15,11 +15,13 @@
 #define DEVICE_NAME "SS1"
 char PUBLISH_PATH[30] = "sensor/bed-environment/";
 char LOCATION[5] = "C1";
-char MACADDRESS[18]; // 00:00:00:00:00:00
+char MACADDRESS[18];  // 00:00:00:00:00:00
 char OWNER[20] = "TESTING";
 int status = WL_IDLE_STATUS;
 MQTTClient mqtt_client;
 WiFiClient www_client;
+unsigned long publish_timer = 60;  // in seconds
+unsigned long timer = 0;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Temperature Hum sensor ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int SHT31_Address = 0x44;
@@ -67,18 +69,26 @@ void setup() {
 
 void loop() {
   wdt_reset();
-  static unsigned long timer = 0;
   maintain_mqtt_connection();
-  mqtt_client.loop();
+  getInitialData();
 
-  if (millis() - timer > 20000) {
+  if (millis() - timer > publish_timer * 1000) {
     if (getSensorData()) {
       timer = millis();
-      Serial.print(F("timer started"));
+      Serial.println(F("timer started"));
     }
   }
-
   mqtt_client.loop();
+}
+
+void getInitialData() {
+  static bool send_initial_data = false;
+  if (!send_initial_data) {
+    getSensorData();
+    timer = millis();
+    send_initial_data = true;
+    Serial.println(F("timer started"));
+  }
 }
 
 bool getSensorData() {

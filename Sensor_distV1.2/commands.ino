@@ -85,22 +85,22 @@ void control_commands(char* topic, char* payload, int payload_length) {
       water_7.set_name(new_name);
       break;
     case 16:
-      Serial.print("Reset");
+      Serial.println("Reset");
       while (true);
       break;
     case 17:
-      Serial.print(F("Factory reset all bed names will now be reset to ?"));
+      Serial.println(F("Factory reset all bed names will now be reset to ?"));
       for (int i = 0; i < EEPROM.length(); i++) {
         EEPROM.put(i, 0);
       }
       while (true);
       break;
     case 18:
-      Serial.print(F("User updated sensors"));
+      Serial.println(F("User updated sensors"));
       getSensorData();
       break;
     default:
-      Serial.print(F("Index not found"));
+      Serial.println(F("Index not found"));
       break;
   }
 }
