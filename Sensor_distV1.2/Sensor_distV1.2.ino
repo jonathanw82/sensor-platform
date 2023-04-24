@@ -1,3 +1,4 @@
+#include <credentials.h>
 #include <BB_Adafruit_SHT31.h>
 #include <WiFiNINA.h>
 #include <MQTT.h>
@@ -6,10 +7,11 @@
 #include <avr/wdt.h>
 #include "SHT31_Cls.h"
 #include "WATER_Cls.h"
+
 // sensor/bed-environment/mac=macaddress/owner/
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Define WiFi & Mqtt Settings  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#define WIFI_NAME "TP-LINK_Extender_2.4GHz"
-#define WIFI_PASSWORD "n6qYCUw46aUMv7"
+#define WIFI_NAME ssid
+#define WIFI_PASSWORD password
 #define MQTT_HOST "192.168.1.88"
 #define SUBSCRIBE_PATH "SS1/sub/"
 #define DEVICE_NAME "SS1"
