@@ -12,7 +12,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Define WiFi & Mqtt Settings  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #define WIFI_NAME ssid
 #define WIFI_PASSWORD password
-#define MQTT_HOST "192.168.1.88"
+#define MQTT_HOST mqtt_host_name
 #define SUBSCRIBE_PATH "SS1/sub/"
 #define DEVICE_NAME "SS1"
 char PUBLISH_PATH[30] = "sensor/bed-environment/";
