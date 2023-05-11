@@ -11,7 +11,7 @@
 // sensor/bed-environment/mac=macaddress/owner/
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Define WiFi & Mqtt Settings  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #define WIFI_NAME ssid
-#define WIFI_PASSWORD password
+#define WIFI_PASSWORD wifipassword
 #define MQTT_HOST mqtt_host_name
 #define SUBSCRIBE_PATH "SS1/sub/"
 #define DEVICE_NAME "SS1"
